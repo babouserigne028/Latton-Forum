@@ -1,0 +1,43 @@
+/* Styles pour le bouton du menu déroulant */
+.dropdown-toggle {
+  background-color: var(--blue);
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  width: 70%; /* Définir la largeur du bouton */
+  box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
+  margin-left: 100px;
+}
+
+/* Styles pour le menu déroulant */
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  background-color: white;
+  min-width: 51%; /* Définir la largeur minimale de la liste déroulante pour qu'elle corresponde à celle du bouton */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
+  margin-left: 100px;
+}
+
+/* Styles pour les éléments de la liste du menu déroulant */
+.dropdown-menu li {
+  list-style: none;
+}
+
+/* Styles pour les liens dans le menu déroulant */
+.dropdown-menu li a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Styles pour les liens dans le menu déroulant lorsqu'ils sont survolés */
+.dropdown-menu li a:hover {
+  background-color: #ddd;
+}
