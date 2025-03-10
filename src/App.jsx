@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Sidebar from './Sidebar';
 import Dropdown from './Dropdown';
 import Avatar from './Avatar';
-import Chat from './Chat'; // Assurez-vous d'importer le composant Chat
+import Chat from './Chat'; // Assurez-vous d'importer le composant ChatForum
 import TableDesMatières from './TableDesMatières';
 import './style.css';
 import avatarImage from './assets/bamba.avif';
