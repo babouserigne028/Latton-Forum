@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import './style.css'; // Importer le fichier CSS
-import LogoLattonForum from './assets/LogoLattonForum.jpg'; // Importer l'image
+import '../style.css'; // Importer le fichier CSS
+import LogoLattonForum from '../assets/LogoLattonForum.jpg'; // Importer l'image
 
 // eslint-disable-next-line react/prop-types
 function Sidebar({ onShowTablesDesMatières, onForumClick, onOtherButtonClick, setActiveTab }) {

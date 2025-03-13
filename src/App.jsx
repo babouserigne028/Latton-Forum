@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Sidebar from './Sidebar';
-import Dropdown from './Dropdown';
-import Avatar from './Avatar';
-import Chat from './Chat'; // Assurez-vous d'importer le composant ChatForum
-import TableDesMatières from './TableDesMatières';
+import Sidebar from './Composants/Sidebar'; // Vérifiez ce chemin
+import Dropdown from './Composants/Dropdown'; // Vérifiez ce chemin
+import Avatar from './Composants/Avatar'; // Vérifiez ce chemin
+import Chat from './Composants/Chat'; // Vérifiez ce chemin
+import TableDesMatières from './Composants/TableDesMatières'; // Vérifiez ce chemin
 import './style.css';
 import avatarImage from './assets/bamba.avif';
 import { IoNotificationsOutline, IoMailOutline } from 'react-icons/io5';
@@ -14,7 +14,11 @@ function App() {
   const [chatVisible, SetChatVisible] = useState(false);
   const [showTablesDesMatières, setShowTablesDesMatières] = useState(true);
 
-
+  console.log('App component rendered');
+  console.log('selectedSubject:', selectedSubject);
+  console.log('ForumSelected:', ForumSelected);
+  console.log('chatVisible:', chatVisible);
+  console.log('showTablesDesMatières:', showTablesDesMatières);
 
   const user = {
     name: 'Bamba',
@@ -25,25 +29,29 @@ function App() {
 
   // Fonction pour gérer la sélection d'un sujet
   const handleSubjectSelect = (subject) => {
+    console.log('handleSubjectSelect called with subject:', subject);
     setSelectedSubject(subject);
     SetChatVisible(true);
   };
 
   const handleShowTablesDesMatières = () => {
+    console.log('handleShowTablesDesMatières called');
     setShowTablesDesMatières(true);
     setForumSelected(false);
     SetChatVisible(false);
   };
+
   // Fonction pour gérer le clic sur le tableau de bord
   const handleForumClick = () => {
+    console.log('handleForumClick called');
     setForumSelected(true);
     SetChatVisible(false);
     setShowTablesDesMatières(false);
-
   };
 
   // Fonction pour gérer le clic sur d'autres onglets
   const handleOtherButtonClick = () => {
+    console.log('handleOtherButtonClick called');
     setForumSelected(false);
     SetChatVisible(false);
     setShowTablesDesMatières(false);
