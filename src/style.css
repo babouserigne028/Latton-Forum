@@ -37,6 +37,8 @@ body {
 .navigation ul li.active a {
   color: var(--blue);
 }
+
+
 .navigation {
   position: fixed;
   width: 300px;

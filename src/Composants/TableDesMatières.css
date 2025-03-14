@@ -1,8 +1,6 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    margin-top: 10px;
   }
   
   .header {
@@ -105,9 +103,23 @@
   .header h1 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
+    justify-content: center;
+    display: flex;
   }
   
   .header p {
     font-size: 0.9rem;
     color: #6b7280;
+    justify-content: center;
+    display: flex;
+  }
+
+.search-bar {
+    width: 70%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 3px solid #ccc;
+    border-radius: 30px;
+    margin-top: 0;
+    margin-left: 130px;
   }

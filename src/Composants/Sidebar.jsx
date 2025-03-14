@@ -72,7 +72,7 @@ function Sidebar({ onShowTablesDesMatières, onForumClick, onOtherButtonClick, s
             <span className="icon">
              <ion-icon name="exit-sharp"></ion-icon>
             </span>
-            <span className="title">Accueil</span>
+            <span className="title">Déconnexion</span>
           </a>
         </li>
       </ul>

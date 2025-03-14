@@ -1,12 +1,7 @@
+import { useState } from "react";
+import { mockSubjects } from '../assets/data';
 import "./TableDesMatières.css";
 
-// Données temporaires
-const mockSubjects = [
-  { id: 1, name: 'Mathématiques II', questions: 45, students: 32 },
-  { id: 2, name: 'Algorithmique', questions: 28, students: 25 },
-  { id: 3, name: 'Electricité', questions: 37, students: 18 },
-  { id: 3, name: 'Langage C', questions: 37, students: 18 },
-];
 
 // Icônes de base (vous pouvez utiliser react-icons en vrai projet)
 const BookIcon = () => <span>📘</span>;
@@ -14,17 +9,34 @@ const MessageSquareIcon = () => <span>💬</span>;
 const UserIcon = () => <span>👤</span>;
 
 const TablesDesMatières = () => {
+  
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Fonction pour filtrer les matières en fonction de la recherche
+    const filteredSubjects = mockSubjects.filter(subject =>
+      subject.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+  
   return (
     <div className="container">
+        <input
+        type="text"
+        placeholder="Rechercher une matière..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-bar"
+        />
       {/* En-tête */}
       <div className="header">
+      {/* Barre de recherche */}
         <h1>Bienvenue sur LATTON FORUM ESMT</h1>
         <p>Sélectionnez une matière pour voir les discussions</p>
       </div>
 
       {/* Grille des matières */}
       <div className="subjects-grid">
-        {mockSubjects.map((subject) => (
+        {filteredSubjects.map((subject) => (
           <div key={subject.id} className="subject-card">
             <div className="card-content">
               <div className="icon-container">

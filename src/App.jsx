@@ -6,7 +6,7 @@ import Chat from './Composants/Chat'; // Vérifiez ce chemin
 import TableDesMatières from './Composants/TableDesMatières'; // Vérifiez ce chemin
 import './style.css';
 import avatarImage from './assets/bamba.avif';
-import { IoNotificationsOutline, IoMailOutline } from 'react-icons/io5';
+import { IoNotificationsOutline } from 'react-icons/io5';
 
 function App() {
   const [selectedSubject, setSelectedSubject] = useState('Choisir une matière');
@@ -14,11 +14,6 @@ function App() {
   const [chatVisible, SetChatVisible] = useState(false);
   const [showTablesDesMatières, setShowTablesDesMatières] = useState(true);
 
-  console.log('App component rendered');
-  console.log('selectedSubject:', selectedSubject);
-  console.log('ForumSelected:', ForumSelected);
-  console.log('chatVisible:', chatVisible);
-  console.log('showTablesDesMatières:', showTablesDesMatières);
 
   const user = {
     name: 'Bamba',
@@ -29,13 +24,11 @@ function App() {
 
   // Fonction pour gérer la sélection d'un sujet
   const handleSubjectSelect = (subject) => {
-    console.log('handleSubjectSelect called with subject:', subject);
     setSelectedSubject(subject);
     SetChatVisible(true);
   };
 
   const handleShowTablesDesMatières = () => {
-    console.log('handleShowTablesDesMatières called');
     setShowTablesDesMatières(true);
     setForumSelected(false);
     SetChatVisible(false);
@@ -43,7 +36,6 @@ function App() {
 
   // Fonction pour gérer le clic sur le tableau de bord
   const handleForumClick = () => {
-    console.log('handleForumClick called');
     setForumSelected(true);
     SetChatVisible(false);
     setShowTablesDesMatières(false);
@@ -51,7 +43,6 @@ function App() {
 
   // Fonction pour gérer le clic sur d'autres onglets
   const handleOtherButtonClick = () => {
-    console.log('handleOtherButtonClick called');
     setForumSelected(false);
     SetChatVisible(false);
     setShowTablesDesMatières(false);
@@ -62,7 +53,6 @@ function App() {
       <Sidebar onForumClick={handleForumClick} onShowTablesDesMatières={handleShowTablesDesMatières} onOtherButtonClick={handleOtherButtonClick}  />
       <div className="main-content">
         <div className="user-container static-right">
-          <IoMailOutline className="message-icon" />
           <IoNotificationsOutline className="notification-icon" />
           <Avatar user={user} />
         </div>

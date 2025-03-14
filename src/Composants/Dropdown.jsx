@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { mockSubjects } from '../assets/data';
 import './Dropdown.css'; // Importer le fichier CSS
 
 function Dropdown({ selectedSubject, handleSubjectSelect }) {
@@ -22,10 +23,14 @@ function Dropdown({ selectedSubject, handleSubjectSelect }) {
       </button>
       {isOpen && (
         <ul className="dropdown-menu">
-          <li><a href="#" onClick={() => handleSelect('Electricité')}>Electricité</a></li>
-          <li><a href="#" onClick={() => handleSelect('Mathématiques I')}>Mathématiques I</a></li>
-          <li><a href="#" onClick={() => handleSelect('Algorithmique')}>Algorithmique</a></li>
-          <li><a href="#" onClick={() => handleSelect('Langage C')}>Langage C</a></li>
+          {mockSubjects.map((subject) => (
+            <li key={subject.id}>
+              <a href="#" onClick={() => handleSelect(subject.name)}>
+                {subject.name}
+              </a>
+            </li>
+          ))}
+
         </ul>
       )}
     </div>
