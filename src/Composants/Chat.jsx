@@ -64,9 +64,9 @@ const Chat = ({ selectedSubject }) => {
           id="fileInput"
           style={{ display: 'none' }}
           onChange={handleFileChange}
-          multiple
+          //multiple
         />
-        <button className="buttonAjoutFichier" onClick={() => document.getElementById('fileInput').click()} style={{ position: 'relative' }}>
+        <button  disabled={selectedSubject === 'Sélectionnez une matière pour accéder au forum'} className="buttonAjoutFichier" onClick={() => document.getElementById('fileInput').click()} style={{ position: 'relative' }}>
           <ion-icon name="document-attach"></ion-icon>
           {fileCount > 0 && (
             <span className="badge">{fileCount}</span>
@@ -74,6 +74,7 @@ const Chat = ({ selectedSubject }) => {
         </button>
         <textarea
           className="espace-saisie"
+          disabled={selectedSubject === 'Sélectionnez une matière pour accéder au forum'}
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Poser votre question..."
@@ -83,7 +84,12 @@ const Chat = ({ selectedSubject }) => {
           }}
           rows="3" // Nombre minimum de lignes affichées
         />
-        <button onClick={handleSendMessage}><ion-icon name="paper-plane"></ion-icon></button>
+        <button 
+        onClick={handleSendMessage}
+        disabled={selectedSubject === 'Sélectionnez une matière pour accéder au forum'}
+        >
+          <ion-icon name="paper-plane"></ion-icon>
+        </button>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import avatarImage from './assets/bamba.avif';
 import { IoNotificationsOutline } from 'react-icons/io5';
 
 function App() {
-  const [selectedSubject, setSelectedSubject] = useState('Choisir une matière');
+  const [selectedSubject, setSelectedSubject] = useState('Sélectionnez une matière pour accéder au forum');
   const [ForumSelected, setForumSelected] = useState(false);
   const [chatVisible, SetChatVisible] = useState(false);
   const [showTablesDesMatières, setShowTablesDesMatières] = useState(true);
@@ -37,7 +37,7 @@ function App() {
   // Fonction pour gérer le clic sur le tableau de bord
   const handleForumClick = () => {
     setForumSelected(true);
-    SetChatVisible(false);
+    SetChatVisible(true);
     setShowTablesDesMatières(false);
   };
 
