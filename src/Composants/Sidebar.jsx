@@ -1,79 +1,54 @@
-import { useState } from 'react';
-import '../style.css'; // Importer le fichier CSS
-import LogoLattonForum from '../assets/LogoLattonForum.jpg'; // Importer l'image
+import { NavLink,useLocation } from 'react-router-dom';
+import '../style.css';
+import LogoLattonForum from '../assets/LogoLattonForum.jpg';
+import { IoHome, IoChatbubbles, IoChatboxEllipsesSharp, IoLibrary, IoLockClosedSharp, IoExitSharp } from "react-icons/io5";
 
-// eslint-disable-next-line react/prop-types
-function Sidebar({ onShowTablesDesMatières, onForumClick, onOtherButtonClick, setActiveTab }) {
-  const [activeIndex, setActiveIndex] = useState(null);
 
-  // Fonction pour gérer le clic sur un élément de la barre latérale
-  const handleItemClick = (index, callback, tabName) => {
-    if (index === 1 && activeIndex === 1) {
-      setActiveIndex(null); // Désactiver si cliqué à nouveau
-      if (callback) callback();
-      setActiveTab(null);
-    } else {
-      setActiveIndex(index);
-      if (callback) callback();
-      setActiveTab(tabName);
-    }
-  };
-
+function Sidebar() {
+  const location = useLocation();
   return (
     <div className="navigation">
       <ul>
         <li>
-          <a href="#">
+          <NavLink to="/" className="logo-link">
             <img src={LogoLattonForum} alt="Logo Latton Forum" className="logo" />
-          </a>
+          </NavLink>
         </li>
-        <li className={activeIndex === 0 ? 'active' : ''} onClick={onShowTablesDesMatières}>
-          <a href="#" onClick={() => handleItemClick(0, onShowTablesDesMatières, 'Dashbord')}>
-            <span className="icon">
-            <ion-icon name="chatbubbles"></ion-icon>
-            </span>
-            <span className="title">Dashbord</span>
-          </a>
+        <li className={location.pathname === '/' ? 'active' : ''}>
+          <NavLink to="/">
+            <span className="icon"><IoHome size={30} /></span>
+            <span className="title">Dashboard</span>
+          </NavLink>
         </li>
-        <li className={activeIndex === 1 ? 'active' : ''} onClick={onForumClick}>
-          <a href="#" onClick={() => handleItemClick(1, onForumClick, 'Forum de discussion')}>
-            <span className="icon">
-            <ion-icon name="chatbubbles"></ion-icon>
-            </span>
+        <li className={location.pathname === '/forum' ? 'active' : ''}>
+          <NavLink to="/forum">
+            <span className="icon"><IoChatbubbles size={30} /></span>
             <span className="title">Forum de discussion</span>
-          </a>
+          </NavLink>
         </li>
-        <li className={activeIndex === 2 ? 'active' : ''} onClick={onOtherButtonClick}>
-          <a href="#" onClick={() => handleItemClick(2, onOtherButtonClick, 'Mes Questions')}>
-            <span className="icon">
-            <ion-icon name="chatbox-ellipses-sharp"></ion-icon>
-            </span>
+        <li className={location.pathname === '/mes-questions' ? 'active' : ''}>
+          <NavLink to="/mes-questions">
+            <span className="icon"><IoChatboxEllipsesSharp size={30} /></span>
             <span className="title">Mes Questions</span>
-          </a>
+          </NavLink>
         </li>
-        <li className={activeIndex === 3 ? 'active' : ''} onClick={onOtherButtonClick}>
-          <a href="#" onClick={() => handleItemClick(3, onOtherButtonClick, 'Supports de Cours')}>
-            <span className="icon">
-            <ion-icon name="file-tray-stacked-sharp"></ion-icon>
-            </span>
+        <li className={location.pathname === '/support' ? 'active' : ''}>
+          <NavLink to="/support">
+            <span className="icon"><IoLibrary size={30} /></span>
             <span className="title">Supports de Cours</span>
-          </a>
+          </NavLink>
         </li>
-        <li className={activeIndex === 4 ? 'active' : ''} onClick={onOtherButtonClick}>
-          <a href="#" onClick={() => handleItemClick(4, onOtherButtonClick, 'Compte')}>
-            <span className="icon">
-             <ion-icon name="lock-closed-sharp"></ion-icon>
-            </span>
+        <li className={location.pathname === '/compte' ? 'active' : ''}>
+          <NavLink to="/compte">
+            <span className="icon"><IoLockClosedSharp size={30} /></span>
             <span className="title">Compte</span>
-          </a>
+          </NavLink>
         </li>
-        <li className={activeIndex === 5 ? 'active' : ''} onClick={onOtherButtonClick}>
-          <a href="#" onClick={() => handleItemClick(5, onOtherButtonClick, 'Accueil')}>
-            <span className="icon">
-             <ion-icon name="exit-sharp"></ion-icon>
-            </span>
+        <li className={location.pathname === '/logout' ? 'active' : ''}>
+          <NavLink to="/logout">
+            <span className="icon"><IoExitSharp size={30} /></span>
             <span className="title">Déconnexion</span>
-          </a>
+          </NavLink>
         </li>
       </ul>
     </div>

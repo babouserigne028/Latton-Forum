@@ -217,6 +217,7 @@ body {
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .user img {
@@ -250,5 +251,14 @@ body {
   display: flex;
   align-items: center;
   padding: 10px;
+}
+
+.custom-footer {
+  background-color: white;
+  border-top: 1px solid #e5e7eb;   /* équivalent de border-gray-200 */
+  padding: 1rem 1.5rem;            /* py-4 (1rem haut/bas), px-6 (1.5rem gauche/droite) */
+  text-align: center;
+  color: #6b7280;                  /* équivalent de text-gray-500 */
+  font-size: 0.875rem;             /* text-sm => 14px par défaut */
 }
 

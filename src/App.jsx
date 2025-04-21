@@ -1,72 +1,49 @@
-import { useState } from 'react';
-import Sidebar from './Composants/Sidebar'; // Vérifiez ce chemin
-import Dropdown from './Composants/Dropdown'; // Vérifiez ce chemin
-import Avatar from './Composants/Avatar'; // Vérifiez ce chemin
-import Chat from './Composants/Chat'; // Vérifiez ce chemin
-import TableDesMatières from './Composants/TableDesMatières'; // Vérifiez ce chemin
-import './style.css';
-import avatarImage from './assets/bamba.avif';
-import { IoNotificationsOutline } from 'react-icons/io5';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from "./Composants/Sidebar";
+import Avatar from "./Composants/Avatar";
+import TablesDesMatières from "./Composants/TableDesMatières";
+import Chat from "./Composants/Chat";
+import "./style.css";
+import avatarImage from "./assets/bamba.avif";
 
-function App() {
-  const [selectedSubject, setSelectedSubject] = useState('Sélectionnez une matière pour accéder au forum');
-  const [ForumSelected, setForumSelected] = useState(false);
-  const [chatVisible, SetChatVisible] = useState(false);
-  const [showTablesDesMatières, setShowTablesDesMatières] = useState(true);
-
-
+function MainRoutes() {
   const user = {
-    name: 'Bamba',
+    name: "Bamba",
     avatarUrl: avatarImage,
-    role: 'Étudiant',
-    notificationCount: 5
-  };
-
-  // Fonction pour gérer la sélection d'un sujet
-  const handleSubjectSelect = (subject) => {
-    setSelectedSubject(subject);
-    SetChatVisible(true);
-  };
-
-  const handleShowTablesDesMatières = () => {
-    setShowTablesDesMatières(true);
-    setForumSelected(false);
-    SetChatVisible(false);
-  };
-
-  // Fonction pour gérer le clic sur le tableau de bord
-  const handleForumClick = () => {
-    setForumSelected(true);
-    SetChatVisible(true);
-    setShowTablesDesMatières(false);
-  };
-
-  // Fonction pour gérer le clic sur d'autres onglets
-  const handleOtherButtonClick = () => {
-    setForumSelected(false);
-    SetChatVisible(false);
-    setShowTablesDesMatières(false);
+    role: "Étudiant",
   };
 
   return (
-    <div className="app">
-      <Sidebar onForumClick={handleForumClick} onShowTablesDesMatières={handleShowTablesDesMatières} onOtherButtonClick={handleOtherButtonClick}  />
-      <div className="main-content">
-        <div className="user-container static-right">
-          <IoNotificationsOutline className="notification-icon" />
-          <Avatar user={user} />
-        </div>
-        {showTablesDesMatières && <TableDesMatières />}
-        {ForumSelected && (
-          <div className="dropdown-container">
-            <Dropdown selectedSubject={selectedSubject} handleSubjectSelect={handleSubjectSelect} />
-          </div>
-        )}
-        {chatVisible && (
-          <Chat selectedSubject={selectedSubject} />
-        )}
+    <>
+      <div className="user-container static-right">
+        <Avatar user={user} />
       </div>
-    </div>
+
+      <Routes>
+        <Route path="/" element={<TablesDesMatières />} />
+        <Route path="/forum" element={<Chat />} />
+        <Route path="/compte" element={<h2>Mon Compte</h2>} />
+        <Route path="/mes-questions" element={<h2>Mes Questions</h2>} />
+        <Route path="/logout" element={<h2>Déconnexion</h2>} />
+      </Routes>
+
+      <footer className="custom-footer">
+        <p>© 2025 LATTON FORUM - Plateforme éducative</p>
+      </footer>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <div className="app">
+        <Sidebar />
+        <div className="main-content">
+          <MainRoutes />
+        </div>
+      </div>
+    </Router>
   );
 }
 

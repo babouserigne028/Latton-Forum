@@ -1,95 +1,97 @@
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useRef, useState } from "react";
+import { utilisateurs, messages, mockSubjects } from "../assets/data";
+
+import { FaPlus } from "react-icons/fa6";
+import { LuSend } from "react-icons/lu";
+
 import "./Chat.css";
 
-const Chat = ({ selectedSubject }) => {
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [files, setFiles] = useState([]);
-  const [fileCount, setFileCount] = useState(0);
+const Chat = () => {
+  const chatContainerRef = useRef(null);
+  const currentUser = 1;
+  const [message, setMessage] = useState("");
+  const [currentSubject, setCurrentSubject] = useState(mockSubjects[0]);
 
-  const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setFiles(selectedFiles);
-    setFileCount(selectedFiles.length);
+  const onSelectSubject = (subject) => {
+    setCurrentSubject(subject);
   };
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() === "" && files.length === 0) return;
-
-    const messageData = {
-      id: uuidv4(),
-      user: "Moi",
-      text: newMessage,
-      files: files.map(file => URL.createObjectURL(file)),
-      timestamp: new Date().toLocaleTimeString(),
-    };
-
-    setMessages([...messages, messageData]);
-    setNewMessage("");
-    setFiles([]);
-    setFileCount(0);
-  };
-
-  const handleDeleteMessage = (id) => {
-    setMessages(messages.filter((msg) => msg.id !== id));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Message envoyé:", message);
+    setMessage("");
   };
 
   return (
-    <div className="chat-container">
-      <h2>{selectedSubject}</h2>
-
-      <div className="messages">
-        {messages.map((msg) => (
-          <div key={msg.id} className="message">
-            <strong>{msg.user}:</strong> {msg.text}
-            <span style={{ fontSize: "12px", color: "gray", marginLeft: "10px" }}>
-              {msg.timestamp}
-            </span>
-            {msg.files && msg.files.map((file, index) => (
-              <div key={index}>
-                <img src={file} alt="Fichier envoyé" width="100px" />
-              </div>
-            ))}
-            <button onClick={() => handleDeleteMessage(msg.id)} style={{ marginLeft: "10px", background: "red" }}>
-              Supprimer
-            </button>
-          </div>
+    <div>
+      <div className="headerChat">
+        <h2>Discussion</h2>
+      </div>
+      <div className="subject-selector">
+        {mockSubjects.map((subject) => (
+          <button
+            key={subject.id}
+            onClick={() => onSelectSubject(subject)}
+            className={`subject-button ${
+              currentSubject.id === subject.id ? "active" : ""
+            }`}
+            style={
+              currentSubject.id === subject.id
+                ? { backgroundColor: "#f0f0f0" }
+                : {}
+            }
+          >
+            {subject.name}
+          </button>
         ))}
       </div>
+      <div ref={chatContainerRef} className="chat-container">
+        {messages.map((msg) => {
+          // Permet de rechercher dans le tableau utilisateur le nom et le prenom
+          const user = utilisateurs.find((u) => u.id === msg.userId);
+          const sujet = mockSubjects.filter((s) => msg.sujet.includes(s.id));
 
-      <div className="input-container">
-        <input
-          type="file"
-          id="fileInput"
-          style={{ display: 'none' }}
-          onChange={handleFileChange}
-          //multiple
-        />
-        <button  disabled={selectedSubject === 'Sélectionnez une matière pour accéder au forum'} className="buttonAjoutFichier" onClick={() => document.getElementById('fileInput').click()} style={{ position: 'relative' }}>
-          <ion-icon name="document-attach"></ion-icon>
-          {fileCount > 0 && (
-            <span className="badge">{fileCount}</span>
-          )}
+          return (
+            <div
+              key={msg.id}
+              className={`message-row ${
+                msg.userId === currentUser ? "right" : "left"
+              }`}
+            >
+              <div className="message-bubble">
+                <div className="message-user">
+                  <p>
+                    <strong>
+                      {user?.prenom} {user?.nom}
+                    </strong>
+                  </p>
+                </div>
+                <div className="message-content">{msg.contenu}</div>
+                <div className="message-attributs">
+                  {msg.dateCreation} - {sujet.map((s) => s.name).join(", ")} -{" "}
+                  {user.status}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="chat-input-container">
+        <button className="chat-button">
+          <FaPlus size={20} />
         </button>
-        <textarea
-          className="espace-saisie"
-          disabled={selectedSubject === 'Sélectionnez une matière pour accéder au forum'}
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Poser votre question..."
-          onInput={(e) => {
-            e.target.style.height = "auto"; // Réinitialiser la hauteur
-            e.target.style.height = e.target.scrollHeight + "px"; // Ajuster la hauteur selon le contenu
-          }}
-          rows="3" // Nombre minimum de lignes affichées
-        />
-        <button 
-        onClick={handleSendMessage}
-        disabled={selectedSubject === 'Sélectionnez une matière pour accéder au forum'}
-        >
-          <ion-icon name="paper-plane"></ion-icon>
-        </button>
+        <form onSubmit={handleSubmit} className="chat-form">
+          <input
+            type="text"
+            placeholder="Écrivez votre message ici..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="chat-input"
+          />
+          <button type="submit" className="chat-button">
+            <LuSend size={20} />
+          </button>
+        </form>
       </div>
     </div>
   );
